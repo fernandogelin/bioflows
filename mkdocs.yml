@@ -1,0 +1,29 @@
+site_name:        Bioflows
+site_author:      Ashok Ragavendran
+repo_url:         https://github.com/compbiocore/bioflows
+site_description: An easy to use package for running bioinformatics workflows.
+
+theme:
+  name: material
+
+markdown_extensions:
+  - extra
+  - tables
+  - fenced_code
+  - codehilite
+
+docs_dir: docs/src
+
+pages:
+  - Home:
+    - Introduction: intro.md
+    - Conda Pacakge Management: conda.md
+  - Bioflow Tutorials:
+    - Bioflow Tutorials: tutorials.md
+    - Setup the Enviroment for Bioflows: setup.md
+    - Tutorial 1 - RNAseq with GSNAP: tutorial1.md
+  - Wrapers:
+    - Fastqc: wrappers.md
+    - GSNAP: gsnap.md
+    - Qualimap: qualimap.md
+    - HTSeq Counts: htseq.md
