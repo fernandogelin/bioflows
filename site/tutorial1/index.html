@@ -1,0 +1,868 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="An easy to use package for running bioinformatics workflows.">
+      
+      
+      
+        <meta name="author" content="Ashok Ragavendran">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.9.1">
+    
+    
+      
+        <title>Tutorial 1 - RNAseq with GSNAP - Bioflows</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.ba0fd1a6.css">
+      
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#22-tutorial-1-rnaseq-with-gsnap" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../intro/" title="Bioflows" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Bioflows
+              </span>
+              <span class="md-header-nav__topic">
+                Tutorial 1 - RNAseq with GSNAP
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/compbiocore/bioflows/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <span class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </span>
+    Bioflows
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/compbiocore/bioflows/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      Home
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        Home
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../intro/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../conda/" title="Conda Pacakge Management" class="md-nav__link">
+      Conda Pacakge Management
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Bioflow Tutorials
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Bioflow Tutorials
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../tutorials/" title="Bioflow Tutorials" class="md-nav__link">
+      Bioflow Tutorials
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../setup/" title="Setup the Enviroment for Bioflows" class="md-nav__link">
+      Setup the Enviroment for Bioflows
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Tutorial 1 - RNAseq with GSNAP
+      </label>
+    
+    <a href="./" title="Tutorial 1 - RNAseq with GSNAP" class="md-nav__link md-nav__link--active">
+      Tutorial 1 - RNAseq with GSNAP
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#22-tutorial-1-rnaseq-with-gsnap" title="2.2 Tutorial 1 - RNAseq with GSNAP" class="md-nav__link">
+    2.2 Tutorial 1 - RNAseq with GSNAP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#221-setup-the-yaml-configuration-file" title="2.2.1 Setup the YAML configuration file" class="md-nav__link">
+    2.2.1 Setup the YAML configuration file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#222-yaml-description" title="2.2.2 YAML description" class="md-nav__link">
+    2.2.2 YAML description
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#223-how-to-run" title="2.2.3 How to run" class="md-nav__link">
+    2.2.3 How to run
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Wrapers
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Wrapers
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../wrappers/" title="Fastqc" class="md-nav__link">
+      Fastqc
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gsnap/" title="GSNAP" class="md-nav__link">
+      GSNAP
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../qualimap/" title="Qualimap" class="md-nav__link">
+      Qualimap
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../htseq/" title="HTSeq Counts" class="md-nav__link">
+      HTSeq Counts
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#22-tutorial-1-rnaseq-with-gsnap" title="2.2 Tutorial 1 - RNAseq with GSNAP" class="md-nav__link">
+    2.2 Tutorial 1 - RNAseq with GSNAP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#221-setup-the-yaml-configuration-file" title="2.2.1 Setup the YAML configuration file" class="md-nav__link">
+    2.2.1 Setup the YAML configuration file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#222-yaml-description" title="2.2.2 YAML description" class="md-nav__link">
+    2.2.2 YAML description
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#223-how-to-run" title="2.2.3 How to run" class="md-nav__link">
+    2.2.3 How to run
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/compbiocore/bioflows/edit/master/docs/tutorial1.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                  <h1>Tutorial 1 - RNAseq with GSNAP</h1>
+                
+                <h3 id="22-tutorial-1-rnaseq-with-gsnap">2.2 Tutorial 1 - RNAseq with GSNAP</h3>
+<p>This tutorial show how to run a standard predefined RNA-seq analysis on
+the using the bioflows tool. This workflow
+consists of the following steps which have been implemented:</p>
+<ul>
+<li>
+<p><strong>Fastqc</strong>: For QC of Raw Fastq reads</p>
+</li>
+<li>
+<p><strong>GSNAP</strong> alignment of the reads to the reference genome of the reads</p>
+</li>
+<li>
+<p><strong>Qualimap</strong> tool for the QC of the aligments generated</p>
+</li>
+<li>
+<p><strong>featureCounts</strong> tool for quantifying expression based on mapped reads</p>
+</li>
+<li>
+<p><strong>Salmon</strong> tool for alignment free quantification of known transcripts</p>
+</li>
+</ul>
+<p>Below is a short how-to with all the commands</p>
+<h3 id="221-setup-the-yaml-configuration-file">2.2.1 Setup the YAML configuration file</h3>
+<p>For the test run we use the following YAML format control file. A
+detailed documentation of the YAML file and all the options is shown
+here. For the current example, we will discuss each section in detail  below</p>
+<div class="codehilite"><pre><span></span>    <span class="l l-Scalar l-Scalar-Plain">bioproject</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Project_test_localhost</span>
+    <span class="l l-Scalar l-Scalar-Plain">experiment</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">:red:rnaseq_pilot</span>
+    <span class="l l-Scalar l-Scalar-Plain">sample_manifest</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">fastq_file</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">sampl_manifest_min.csv</span>
+      <span class="l l-Scalar l-Scalar-Plain">metadata</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">run_parms</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">conda_command</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">source activate /gpfs/runtime/opt/conda/envs/cbc_conda_test</span>
+      <span class="l l-Scalar l-Scalar-Plain">work_dir</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/gpfs/scratch/aragaven/test_workflow</span>
+      <span class="l l-Scalar l-Scalar-Plain">log_dir</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">logs</span>
+      <span class="l l-Scalar l-Scalar-Plain">paired_end</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">False</span>
+      <span class="l l-Scalar l-Scalar-Plain">local_targets</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">False</span>
+      <span class="l l-Scalar l-Scalar-Plain">db</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">sqlite</span>
+      <span class="l l-Scalar l-Scalar-Plain">db_loc</span><span class="p p-Indicator">:</span> <span class="s">&#39;:memory:&#39;</span>
+      <span class="l l-Scalar l-Scalar-Plain">saga_host</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+      <span class="l l-Scalar l-Scalar-Plain">ssh_user</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">aragaven</span>
+      <span class="l l-Scalar l-Scalar-Plain">saga_scheduler</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">slurm</span>
+      <span class="l l-Scalar l-Scalar-Plain">gtf_file</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/gpfs/data/cbc/cbcollab/ref_tools/Ensembl_mus_GRCm38.p5_rel89/Mus_musculus.GRCm38.89.gtf</span>
+    <span class="l l-Scalar l-Scalar-Plain">workflow_sequence</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">fastqc</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+      <span class="l l-Scalar l-Scalar-Plain">gsnap</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">options</span><span class="p p-Indicator">:</span>
+          <span class="l l-Scalar l-Scalar-Plain">-d</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Ensembl_mus_GRCm38.p5_rel89</span>
+          <span class="l l-Scalar l-Scalar-Plain">-s</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Mus_musculus.GRCm38.89.splicesites.iit</span>
+        <span class="l l-Scalar l-Scalar-Plain">job_params</span><span class="p p-Indicator">:</span>
+          <span class="l l-Scalar l-Scalar-Plain">ncpus</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">16</span>
+          <span class="l l-Scalar l-Scalar-Plain">mem</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">40000</span>
+          <span class="l l-Scalar l-Scalar-Plain">time</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">60</span>
+      <span class="l l-Scalar l-Scalar-Plain">qualimap_rnaseq</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+      <span class="l l-Scalar l-Scalar-Plain">htseq-count</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+</pre></div>
+
+
+<h3 id="222-yaml-description">2.2.2 YAML description</h3>
+<p><strong>bioproject</strong><br />
+This will be an unique identifier for your project.
+    This is adopted from the NCBI SRA format structure, so if you use an
+    SRA dataset you can employ these ids</p>
+<p><strong>experiment</strong><br />
+    An identifier for your experiment such as RNA-seq,
+    ChIP-seq etc</p>
+<p><strong>sample_manifest</strong><br />
+    This section contains two sections</p>
+<ul>
+<li><strong>fastq_file</strong><br />
+The full path to the sample to fastq map file.<br />
+This file is in a three column comma separated format with each line formatted as:<br />
+<em>sample_id, path_to_fastq_file_for_read1, path_to_fastq_file_for_read2</em>  </li>
+</ul>
+<p>The <em>sample_id</em> is unique and if you are <strong>using single end data</strong> you just need
+to specify one column as shown below:</p>
+<p><em>sample_id, path_to_fastq_file</em></p>
+<p><strong>metadata</strong><br />
+        This is all the metadata associated with a given
+        <em>sample_id</em> if available such as gender, extraction date etc. This
+        should also be a CSV format file. Currently, not necessary as this
+        information is not yet used</p>
+<p><strong>run_parms</strong><br />
+    This section specifies the global parameters for the
+    current analysis</p>
+<ul>
+<li>
+<p><strong>conda_command</strong><br />
+  This is the command used to activate your conda environment.</p>
+</li>
+<li>
+<p><strong>work_dir</strong><br />
+The working directory for analysis usually created on  <strong><em>gpfs/scratch</em></strong></p>
+</li>
+<li>
+<p><strong>log_dir</strong>
+The subdirectory for all the log files.</p>
+</li>
+<li>
+<p><strong>paired_end</strong>
+Whether data consists of paired end reads or single end reads (True/False).</p>
+</li>
+<li>
+<p><strong>local_targets</strong><br />
+Whether this worklfow is being run from a local machine.</p>
+</li>
+<li>
+<p><strong>db</strong><br />
+default database engine to use ( sqlite)</p>
+</li>
+<li>
+<p><strong>db_loc</strong><br />
+location of the database ':memory:'</p>
+</li>
+<li>
+<p><strong>saga_host</strong><br />
+The hostname if workflow is run from a local machine</p>
+</li>
+<li>
+<p><strong>ssh_user</strong><br />
+The user name if workflow is run from a local machine</p>
+</li>
+<li>
+<p><strong>saga_scheduler</strong><br />
+The scheduler being used, for CCV the value used here is :redtext:<code>/slurm/</code></p>
+</li>
+<li>
+<p><strong>gtf_file</strong><br />
+The full path to the gtf file for gene annotations</p>
+</li>
+</ul>
+<p><strong>workflow_sequence</strong>
+    This section specifies the sequence of tools to
+    be used and the options passed to tools as well as the job parameters
+    if using a scheduler such as slurm</p>
+<ul>
+<li>
+<p><strong>fastqc</strong><br />
+If you want to use the default parameters use <em>default</em> else you can use any of the options provided by the
+program. See  the example for GSNAP below on how to do
+that. See the documentation for the options for fastqc.</p>
+</li>
+<li>
+<p><strong>gsnap</strong><br />
+Here we give an example of two sections as we need to
+pass the index information to the aligner</p>
+</li>
+<li>
+<p><strong>options</strong><br />
+ Specify program options here. In this example we
+ specify the following  <br />
+ <table style="width:50%">
+   <tr>
+     <td>-d</td>
+     <td>The genome index for GSNAP</td>
+   </tr>
+   <tr>
+     <td>-s</td>
+     <td>and the splicesites file location for GSNAP.</td>
+   </tr>
+   </table>
+   The format is exactly that as to what you would specify on the command line for the program</p>
+</li>
+</ul>
+<p>```bash
+-d Ensembl_mus_GRCm38.p5_rel89
+-s Mus_musculus.GRCm38.89.splicesites.iit</p>
+<div class="codehilite"><pre><span></span>See the documentation for the GSNAP program for more options
+
+- **job\_params**  
+This section specifies parameters for job submission such as memory, number of cores etc
+    - ncpus: 16
+
+    - mem: 40000
+
+    - time: 60
+
+- **qualimap\_rnaseq**  
+Run the qualimap module for RNAseq with the **default** settings
+
+
+The final YAML control file should look as below to run a test example. Only modify the parts
+that are highlighted below to fill in your ownm values.
+
+```yaml
+    bioproject: Project_test_localhost
+    experiment: rnaseq_pilot
+    sample_manifest:
+      fastq_file: /users/:bluetext:`username/sample_manifest_min.csv`
+      metadata:
+    run_parms:
+      conda_command: source activate /gpfs/runtime/opt/conda/envs/cbc_conda_test
+      work_dir: /gpfs/scratch/&#39;user/test_workflow&#39;
+      log_dir: logs
+      paired_end: False
+      local_targets: False
+      db: sqlite
+      db_loc: &quot;:memory:&quot;
+      saga_host: localhost
+      ssh_user: &#39;ccv username&#39;
+      saga_scheduler: slurm
+      gtf_file: /gpfs/data/cbc/cbcollab/ref_tools/Ensembl_hg_GRCh37_rel87/Homo_sapiens.GRCh37.87.gtf
+    workflow_sequence:
+      fastqc: default
+      gsnap:
+        options:
+          -d: Ensembl_Homo_sapiens_GRCh37
+          -s: Ensembl_Homo_sapiens.GRCh37.87.splicesites.iit
+        job_params:
+          ncpus: 16
+          mem: 40000
+        time: 60
+      qualimap_rnaseq: default
+      htseq-count: default
+</pre></div>
+
+
+<h4 id="223-how-to-run">2.2.3 How to run</h4>
+<p>Copy the above into a text file and save it in <strong>/users/username</strong> as
+test_run.yaml</p>
+<p>Copy the manifest below into a text file and save it in
+<strong>/users/username</strong> as sample_manifest_min.csv</p>
+<div class="codehilite"><pre><span></span>    samp_1299,/gpfs/scratch/aragaven/rnaseq_test/PE_hg/Cb2_1.gz,/gpfs/scratch/aragaven/rnaseq_test/PE_hg/Cb2_2.gz
+    samp_1214,/gpfs/scratch/aragaven/rnaseq_test/PE_hg/Cb_1.gz,/gpfs/scratch/aragaven/rnaseq_test/PE_hg/Cb_2.gz
+</pre></div>
+
+
+<p>Now in your screen session run the following commands to setup your
+environment if you have not done so previously during the setup or you
+have started a new screen session</p>
+<div class="codehilite"><pre><span></span>    <span class="nb">source</span> activate bflows
+    bioflows-rnaseq test_run.yaml
+</pre></div>
+
+
+<p>In this case I have created a small test dataset with 10000 reads from a
+test human RNAseq data, so it should run within the hour and you should
+see that the alignments are completed.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../setup/" title="Setup the Enviroment for Bioflows" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Setup the Enviroment for Bioflows
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../wrappers/" title="Fastqc" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Fastqc
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.a59e2a89.js"></script>
+      
+      <script>app.initialize({version:"0.17.4",url:{base:".."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>
