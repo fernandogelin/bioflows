@@ -2,6 +2,7 @@ site_name:        Bioflows
 site_author:      Ashok Ragavendran
 repo_url:         https://github.com/compbiocore/bioflows
 site_description: An easy to use package for running bioinformatics workflows.
+site_url: https://fernandogelin.github.io/bioflows/
 
 theme:
   name: material
