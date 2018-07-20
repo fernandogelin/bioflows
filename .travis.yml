@@ -1,22 +1,21 @@
-language: python
-python:
-  - "2.7"
-  - "3.5"
-  - "pypy2.7"
-  - "pypy3.5"
+matrix:
+  include:
+    - stage: test
+      language: julia
+      julia:
+        - 0.6
 
-install:
-  - pip install mkdocs
-  - pip install mkdocs-material
-
-script:
-  - mkdocs build --verbose --clean --strict
-
-after_success:
-  deploy:
-   provider: pages
-   skip_cleanup: true
-   github_token: $GITHUB_TOKEN
-   local_dir: site
-   on:
-     branch: master
+    - stage: deploy
+      language: python
+      install:
+        - pip install mkdocs
+        - pip install mkdocs-material
+      script:
+        - mkdocs build --verbose --clean --strict
+      deploy:
+       provider: pages
+       skip_cleanup: true
+       github_token: $GITHUB_TOKEN
+       local_dir: site
+       on:
+         branch: master
