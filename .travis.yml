@@ -1,9 +1,12 @@
 matrix:
   include:
     - language: julia
+      stage: test
       julia:
         - 0.6
+
     - language: python
+      stage: deploy
       install:
         - pip install mkdocs
         - pip install mkdocs-material
